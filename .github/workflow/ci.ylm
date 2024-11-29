@@ -1,0 +1,26 @@
+name: CI Workflow  # Nom du workflow
+
+on:
+  push:  # Déclenchement lorsque du code est "poussé"
+    branches:
+      - main  # Branche concernée
+  pull_request:  # Ouverture/modification d'une pull request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Machine virtuelle pour exécuter le workflow
+
+    steps:
+      - name: Checkout code  # Étape 1 : Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js  # Étape 2 : Configurer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies  # Étape 3 : Installer les dépendances
+        run: npm install
+
+      - name: Run tests  # Étape 4 : Exécuter les tests
+        run: npm test
